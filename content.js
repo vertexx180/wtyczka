@@ -1,11 +1,9 @@
-chrome.storage.sync.get(['colors', 'removedColors', 'colorModeEnabled'], function(result) {
+chrome.storage.sync.get(['colors', 'removedColors', 'colorModeEnabled'], function (result) {
   const colors = result.colors || [];
   const removedColors = result.removedColors || [];
-  const colorModeEnabled = result.colorModeEnabled !== false; // Domyślnie `true`, chyba że ustawione na `false`
+  const colorModeEnabled = result.colorModeEnabled !== false; // Domyślnie `true`
 
-  console.log('Załadowane kolory:', colors);
-
-  if (colors.length > 0 && colorModeEnabled) {  // Sprawdzamy, czy zmiana koloru jest włączona
+  if (colors.length > 0 && colorModeEnabled) {
     const diceElements = document.querySelectorAll('.dice-wrapper .df-solid-small-dot-d6-1');
     const resultElement = document.querySelector('.zoom-result span');
 
@@ -18,7 +16,6 @@ chrome.storage.sync.get(['colors', 'removedColors', 'colorModeEnabled'], functio
           if (availableColors.length > 0) {
             color = availableColors[Math.floor(Math.random() * availableColors.length)];
           } else {
-            console.log("no color to change");
             break;
           }
         }
@@ -27,11 +24,9 @@ chrome.storage.sync.get(['colors', 'removedColors', 'colorModeEnabled'], functio
 
         if (resultElement) {
           resultElement.textContent = color || 'undefined';
-          resultElement.style.color = (color ? color.toLowerCase() : 'black');
+          resultElement.style.color = color ? color.toLowerCase() : 'black';
         }
       });
     }, 975);
-  } else {
-    console.log('Kolorowanie jest wyłączone.');
   }
 });
